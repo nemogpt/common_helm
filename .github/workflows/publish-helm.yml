@@ -1,0 +1,37 @@
+name: Publish Helm Chart to DockerHub
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+
+env:
+  CHART_NAME: nemo-common-helm
+  CHART_VERSION: 0.1.0
+  DOCKER_REPO: docker.io/nemogpt
+
+jobs:
+  helm-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code into module directory
+        uses: actions/checkout@v3
+
+      - name: Set up Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          echo "HELM_EXPERIMENTAL_OCI=1" >> $GITHUB_ENV
+
+      - name: Log in to DockerHub (Helm OCI)
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | helm registry login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin docker.io
+
+      - name: Package Helm Chart
+        run: |
+          cd $CHART_NAME
+          helm package .
+
+      - name: Push Helm Chart to DockerHub
+        run: |
+          helm push $CHART_NAME-$CHART_VERSION.tgz oci://$DOCKER_REPO
