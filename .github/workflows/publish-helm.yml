@@ -37,4 +37,4 @@ jobs:
 
       - name: Push Helm Chart to DockerHub
         run: |
-          helm push $CHART_NAME-$CHART_VERSION.tgz oci://$DOCKER_REPO
+          helm push build/helms/$CHART_NAME-*.tgz oci://$DOCKER_REPO
