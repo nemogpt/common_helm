@@ -29,8 +29,11 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          cd $CHART_NAME
-          helm package .
+          mkdir -p build/helms
+          helm dependency build $CHART_NAME
+          helm package $CHART_NAME --version $CHART_VERSION --destination build/helms ||true
+          echo "Helm chart packaged successfully." 
+          echo $(cd build/helms && ls -l)
 
       - name: Push Helm Chart to DockerHub
         run: |
