@@ -20,11 +20,3 @@ hpa:
   min: 1
   max: 2
   cpu: 60
-
-ingress:
-  enabled: false
-  name: replace_me
-  host: replace_me
-  path: /
-  environment: replace_me
-  tls: false
