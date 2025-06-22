@@ -1,24 +1,30 @@
-name: REPLACE_ME
-cluster_env_name: REPLACE_ME
-deployment:
-  replicas: 1
-  image:
-    repository: nemogpt/nemo-common-helm
-    tag: latest
-    pullPolicy: IfNotPresent
-    port: 8080
-    requestCpu: 100m
-    limitCpu: 200m
-    requestMemory: 256Mi
-    limitMemory: 512Mi
+name: replace_me
+cluster_env_name: replace_me
 
-hpa:
-  min: 1
-  max: 2
-  cpu: 60
-
-
+image:
+  repository: replace_me
+  tag: replace_me
+  pullPolicy: IfNotPresent
+  port: 8080
+  requestCpu: 100m
+  limitCpu: 200m
+  requestMemory: 256Mi
+  limitMemory: 512Mi
 
 service:
   type: LoadBalancer
   port: 8080
+
+hpa:
+  enabled: false
+  min: 1
+  max: 2
+  cpu: 60
+
+ingress:
+  enabled: false
+  name: replace_me
+  host: replace_me
+  path: /
+  environment: replace_me
+  tls: false
