@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nemo-common-helm.fullname" . }}
+  name: {{ include "app.name" . }}
   labels:
-    app: {{ include "nemo-common-helm.name" . }}
+    app: {{ include "app.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
